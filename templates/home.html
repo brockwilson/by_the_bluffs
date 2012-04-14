@@ -1,0 +1,28 @@
+{% extends "base.html" %}
+
+{% block title %}Home{% endblock %}
+
+{% block content %}
+<h1>Areas</h1>
+<ul>
+{% for area in areas %}
+<li>{{ area }}</li>
+{% endfor %}
+</ul>
+
+<h1>Crags</h1>
+<ul>
+{% for crag in crags %}
+<li>{{ crag }}</li>
+{% endfor %}
+</ul>
+
+<h1>Climbs</h1>
+<ul>
+ {% for climb in climbs %}
+ <li>{{ climb }}</li>
+ {% endfor %}
+</ul>
+
+
+{% endblock %}

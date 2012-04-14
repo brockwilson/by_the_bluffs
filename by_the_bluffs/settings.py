@@ -68,9 +68,7 @@ STATIC_URL = '/static/'
 
 # Additional locations of static files
 STATICFILES_DIRS = (
-    # Put strings here, like "/home/html/static" or "C:/www/django/static".
-    # Always use forward slashes, even on Windows.
-    # Don't forget to use absolute paths, not relative paths.
+    '/Users/brockwilson/code/python/by_the_bluffs/static',
 )
 
 # List of finder classes that know how to find static files in
@@ -107,9 +105,7 @@ ROOT_URLCONF = 'by_the_bluffs.urls'
 WSGI_APPLICATION = 'by_the_bluffs.wsgi.application'
 
 TEMPLATE_DIRS = (
-    # Put strings here, like "/home/html/django_templates" or "C:/www/django/templates".
-    # Always use forward slashes, even on Windows.
-    # Don't forget to use absolute paths, not relative paths.
+    '/Users/brockwilson/code/python/by_the_bluffs/templates',
 )
 
 INSTALLED_APPS = (
@@ -118,7 +114,7 @@ INSTALLED_APPS = (
     'django.contrib.sessions',
     # 'django.contrib.sites',
     # 'django.contrib.messages',
-    # 'django.contrib.staticfiles',
+    'django.contrib.staticfiles',
     'crags',
     'django.contrib.admin',
     # Uncomment the next line to enable admin documentation:
