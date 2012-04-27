@@ -1,44 +1,82 @@
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
   <title>{% block title %}{% endblock %}</title>
   <link rel="stylesheet"
 	href="{{ STATIC_URL }}css/bootstrap.min.css"></link>
-  <style>
-    body {
-    padding-top: 60px;
-    }
+  <meta name="viewport" content="initial-scale=1.0, user-scalable=no" />
+  <style type="text/css">
+    
+    body { 
+    padding-top: 60px;}
+    #map_canvas { height: 100% }
   </style>
+  <script type="text/javascript"
+	  src="http://maps.googleapis.com/maps/api/js?key=AIzaSyCOMoyVWnL69_hKrbo8UcCDQlVox0BbefQ&sensor=false">
+  </script>
   <!--[if lt IE 9]
       <script src="http://mhtml5shim.googlecode.com/svn/trunk/html5.js"></script>
   <![endif]-->
-
+  <script type="text/javascript">
+    function initialize() {
+    {% block location_block %}
+    {% endblock %}    
+    var myOptions = {
+    center: itemPosition,
+    zoom: 16,
+    mapTypeId: google.maps.MapTypeId.HYBRID
+    };
+    var map = new google.maps.Map(document.getElementById("map_canvas"),
+    myOptions);
+    var areaMarker = new google.maps.Marker({
+    position: itemPosition,
+    map: map,
+    title: itemTitle})
+    var locationSuccess = function(userPosition){
+    var userLatLng = new google.maps.LatLng(userPosition.coords.latitude, userPosition.coords.longitude);
+    var userMarker = new google.maps.Marker({
+    position: userLatLng,
+    map: map,
+    icon: "http://www.google.com/intl/en_us/mapfiles/ms/micons/blue-dot.png",
+    title:"You are here! (at least within a "+userPosition.coords.accuracy+" meter radius.)"});
+    };
+    var locationFailure = function(message){
+    alert(message);
+    };
+    if(navigator.geolocation){
+    navigator.geolocation.getCurrentPosition(locationSuccess, locationFailure)
+    }}
+    </script>
   
 </head>
-<body>
+<body {% block in_body_tag %} {% endblock %}>
+
+
   <div class="navbar navbar-fixed-top">
     <div class="navbar-inner">
       <div class="container">
-	<a class="btn btn-navbar" data-toggle="collapse" data-target=".nav-colloapse">
-	  <span class="icon-bar"></span>
-	  <span class="icon-bar"></span>
-	  <span class="icon-bar"></span>
-	</a>
-	<a class="brand" href="#">By The Bluffs</a>
-	<div class="nav-collapse">
-	  <ul class="nav">
-	    <li class="active"><a href="#">Home</a></li>
-	    <li><a href="#areas">Areas</a></li>
-	    <li><a href="#crags">Crags</a></li>
-	    <li><a href="#climbs">Climbs</a></li>
-	  </ul>
-	</div>
+  	<a class="btn btn-navbar" data-toggle="collapse" data-target=".nav-colloapse">
+  	  <span class="icon-bar"></span>
+  	  <span class="icon-bar"></span>
+  	  <span class="icon-bar"></span>
+  	</a>
+  	<a class="brand" href="#">By The Bluffs</a>
+  	<div class="nav-collapse">
+  	  <ul class="nav">
+  	    <li class="active"><a href="#">Home</a></li>
+  	    <li><a href="#areas">Areas</a></li>
+  	    <li><a href="#crags">Crags</a></li>
+  	    <li><a href="#climbs">Climbs</a></li>
+  	  </ul>
+  	</div>
       </div>
     </div>
   </div>
-  <div class="container">
+  
       {% block content %}{% endblock %}
-  </div>
+
+  
 
   <!-- <script src="{{ STATIC_URL }}js/jquery.js"></script> -->
   <script src="{{ STATIC_URL }}js/bootstrap.min.js"></script>
