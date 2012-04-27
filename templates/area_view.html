@@ -1,0 +1,36 @@
+{% extends "base.html" %}
+
+{% block title %}{{ area.name }}{% endblock %}
+
+
+{% block location_block %}
+var itemPosition = new google.maps.LatLng({{ area.latitude }}, {{ area.longitude }});
+var itemTitle = "{{ area.name }}";
+{% endblock %}
+
+{% block in_body_tag %}
+onload="initialize()"
+{% endblock %}
+
+{% block content %}
+<div class="row">
+  <div class="span12 offset2">
+    <h1>{{ area.name }}</h1>
+    <p><strong>Description:</strong>  {{ area.description }}</p>
+    <p><strong>Crags:</strong>
+      <!-- DRY -->
+      <ul>
+	{% for crag in crags %}
+	<li><a href="/crags/{{ crag.id }}">{{ crag.name }}</a></li>
+	{% endfor %}
+      </ul>
+    </p>
+  </div>
+</div>
+<div class="row">
+  <div class="span12 offset2">
+    <div id="map_canvas" style="width:400px; height:400px; align:left" class="container"></div>
+  </div>
+</div>
+  
+{% endblock %}

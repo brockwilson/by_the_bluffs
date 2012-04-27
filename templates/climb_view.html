@@ -1,0 +1,29 @@
+{% extends "base.html" %}
+
+{% block title %}{{ climb.name }}{% endblock %}
+
+{% block location_block %}
+var itemPosition = new google.maps.LatLng({{ climb.latitude }}, {{ climb.longitude }});
+var itemTitle = "{{ climb.name }}";
+{% endblock %}
+
+{% block in_body_tag %}
+onload="initialize()"
+{% endblock %}
+
+{% block content %}
+<div class="row">
+  <div class="span12 offset2">
+    <h1>{{ climb.name }} - {{ climb.grade }}</h1>
+    <p><strong>Description:</strong>  {{ climb.description }}</p>
+    <p><strong>Crag:</strong>  <a href="/crags/{{ climb.crag.id }}">{{ climb.crag.name }}</a></p>
+    <p><strong>Area:</strong>  <a href="/areas/{{ climb.crag.area.id }}">{{ climb.crag.area.name }}</a></p>
+  </div>
+</div>
+<div class="row">
+  <div class="span12 offset2">
+    <div id="map_canvas" style="width:400px; height:400px; align:left" class="container"></div>
+  </div>
+</div>
+  
+{% endblock %}
